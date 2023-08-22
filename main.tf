@@ -16,22 +16,3 @@ resource "aws_instance" "example_instance" {
   }
 
   key_name = aws_key_pair.example_keypair.key_name
-
-connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file("~/.ssh/id_rsa")  # Path to your SSH private key
-    host        = self.public_ip
-  }
-
-  user_data = <<EOF
-#!/bin/bash
-"sudo apt-get update",
-"sudo apt-get install nginx -y",
-"sudo systemctl enable nginx",
-"sudo systemctl start nginx"
-"sudo echo Hello World >/var/www/html/index.nginx-debian.html  
-EOF
-    ]
-  }
-}
