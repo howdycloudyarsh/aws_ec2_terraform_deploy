@@ -4,8 +4,12 @@ provider "aws" {
 resource "aws_instance" "EC2_Frontend" {
     instance_type = "t2.micro"
     ami = "ami-08e5424edfe926b43"
-    key_name = "ubuntu"
+    key_name = "rajkey"
     tags = {
       name = "Frontend-Server"
     }
+}
+resource "aws_key_pair" "rajkey" {
+  key_name   = "rajkey"
+  public_key = file("~/.ssh/id_rsa.pub")  # Path to your public key
 }
