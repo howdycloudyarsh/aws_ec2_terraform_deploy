@@ -17,12 +17,14 @@ connection {
     host        = self.public_ip
   }
 
-provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install nginx -y",
-      "sudo systemctl enable nginx",
-      "sudo systemctl start nginx"
+  user_data = <<EOF
+#!/bin/bash
+"sudo apt-get update",
+"sudo apt-get install nginx -y",
+"sudo systemctl enable nginx",
+"sudo systemctl start nginx"
+"sudo echo Hello World >/var/www/html/index.nginx-debian.html  
+EOF
     ]
   }
 }
