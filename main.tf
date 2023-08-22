@@ -10,7 +10,7 @@ resource "aws_instance" "EC2_DEPLOY" {
     Name = "EC2_DEPLOY"
   }
 
-  provisioner "remote-exec" {
+provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y nginx",
