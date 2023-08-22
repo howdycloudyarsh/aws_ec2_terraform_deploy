@@ -11,5 +11,4 @@ resource "aws_instance" "EC2_Frontend" {
 }
 resource "aws_key_pair" "rajkey" {
   key_name   = "rajkey"
-  public_key = file("~/.ssh/id_rsa.pub")  # Path to your public key
 }
