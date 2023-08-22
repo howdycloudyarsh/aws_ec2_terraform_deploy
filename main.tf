@@ -2,19 +2,19 @@ provider "aws" {
   region = "ap-south-1"  # Mumbai_region
 }
 
-resource "aws_instance" "example" {
+resource "aws_instance" "EC2_DEPLOY" {
   ami           = "ami-08e5424edfe926b43"  # Ubuntu_server_20.04
   instance_type = "t2.micro"
 
-user_data = <<-EOT
-    #!/bin/bash
-    # Install all available updates and nginx
-    apt-get update -y
-    apt-get install nginx -y
+  tags = {
+    Name = "EC2_DEPLOY"
+  }
 
-    # Start nginx
-    systemctl enable nginx
-    systemctl start nginx
-    echo "Hello World" > /var/www/html/index.html
-    EOT
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y nginx",
+      "echo "Hello World" > /var/www/html/index.html",
+    ]
+  }
 }
