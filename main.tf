@@ -17,10 +17,6 @@ resource "aws_instance" "example_instance" {
 
   key_name = aws_key_pair.example_keypair.key_name
 
-  tags = {
-    Name = "nginx1"
-  }
-
 connection {
     type        = "ssh"
     user        = "ubuntu"
