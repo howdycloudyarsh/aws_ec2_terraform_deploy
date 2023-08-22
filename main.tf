@@ -4,6 +4,7 @@ provider "aws" {
 resource "aws_instance" "ec2-web" {
 ami           = "ami-08e5424edfe926b43" # us-west-2
 instance_type = "t2.micro"
+security_groups = [aws_security_group.example.name]
 key_name = "tf-key-pair"
 user_data = <<-EOF
 #!/bin/bash
@@ -36,4 +37,15 @@ rsa_bits  = 4096
 resource "local_file" "tf-key" {
 content  = tls_private_key.rsa.private_key_pem
 filename = "tf-key-pair"
+}
+resource "aws_security_group" "example" {
+  name        = "example-security-group"
+  description = "Example security group for HTTP inbound"
+  
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP from any IP
+  }
 }
